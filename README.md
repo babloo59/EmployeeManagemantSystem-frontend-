@@ -119,13 +119,13 @@ http://localhost:3000
 
 - User logs in
 - Backend returns:
--- JWT token
--- Role
--- firstLogin flag
+  - JWT token
+  - Role
+  - firstLogin flag
 - Frontend stores auth data in localStorage
 - Routing logic:
--- firstLogin === true → /force-change-password
--- Otherwise → /dashboard
+  - firstLogin === true → /force-change-password
+  - Otherwise → /dashboard
 
 ## 🔁 Force Change Password (First Login)
 
