@@ -1,70 +1,164 @@
-# Getting Started with Create React App
+# 🧑‍💼 Employee Management System – Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This repository contains the **Frontend (React.js)** application for the **Employee Management System (EMS)**.  
+The system supports **Admin, Manager, and Employee roles** with JWT authentication, role-based routing, and **force password change on first login**.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🔗 Backend Repository
 
-### `npm start`
+👉 **Backend (Spring Boot + MySQL)**  
+🔗 https://github.com/your-username/employee-management-system-backend
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🚀 Features
 
-### `npm test`
+### 🔐 Authentication & Security
+- JWT-based authentication
+- Token expiry handling & auto logout
+- Role-based access control (ADMIN / MANAGER / EMPLOYEE)
+- Protected routes using React Router
+- **Force Change Password on First Login**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 👤 Role-wise Capabilities
 
-### `npm run build`
+#### 👑 Admin
+- Approve / Reject user registrations
+- Manage employees & managers
+- Assign tasks
+- Approve / Reject leave requests
+- Approve / Reject reports
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### 🧑‍💼 Manager
+- Manage employees
+- Assign tasks to employees
+- Approve employee leaves
+- Approve employee reports
+- Submit own task reports
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### 👷 Employee
+- View assigned tasks
+- Accept tasks
+- Submit task reports
+- Apply for leave
+- Track report & leave status
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## 🛠️ Tech Stack
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- React.js
+- React Router v6
+- Axios
+- Bootstrap / React-Bootstrap
+- JWT Authentication
+- REST API Integration
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 📁 Project Structure
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+frontend/
+├── src/
+│ ├── pages/
+│ │ ├── auth/ # Login, Register, Force Change Password
+│ │ ├── admin/
+│ │ ├── manager/
+│ │ ├── employee/
+│ │ ├── common/
+│ │ └── error/
+│ ├── components/
+│ │ ├── ProtectedRoute.jsx
+│ │ └── RoleRoute.jsx
+│ ├── service/
+│ │ └── api.js
+│ ├── utils/
+│ │ └── auth.js
+│ ├── App.js
+│ └── index.js
+├── public/
+├── package.json
+└── README.md
+```
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## ⚙️ Installation & Setup
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 1️⃣ Clone Repository
+```bash
+git clone https://github.com/your-username/employee-management-system-frontend.git
+cd employee-management-system-frontend
+```
+### 2️⃣ Install Dependencies
+```
+npm install
+```
+### 3️⃣ Configure Backend API
 
-### Code Splitting
+- Update src/service/api.js:
+```
+baseURL: "http://localhost:8080/api"
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Ensure backend is running on port 8080.
 
-### Analyzing the Bundle Size
+### 4️⃣ Run Application
+```
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- Frontend will run at:
+```
+http://localhost:3000
+```
 
-### Making a Progressive Web App
+## 🔐 Authentication Flow
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- User logs in
+- Backend returns:
+-- JWT token
+-- Role
+-- firstLogin flag
+- Frontend stores auth data in localStorage
+- Routing logic:
+-- firstLogin === true → /force-change-password
+-- Otherwise → /dashboard
 
-### Advanced Configuration
+## 🔁 Force Change Password (First Login)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- New users must change password on first login
+- Dashboard access is blocked until password is changed
+- After password update:
+-- Token is cleared
+-- User is forced to login again
 
-### Deployment
+## 🛡️ Route Protection
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- ProtectedRoute
+-- Checks authentication & first login
+- RoleRoute
+-- Restricts access based on role
+- Unauthorized access redirects to /unauthorized
 
-### `npm run build` fails to minify
+## ⚠️ Notes
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Backend must be running before frontend
+- Clear localStorage if token issues occur
+- Do not commit .env or sensitive credentials
+
+## 📌 Future Improvements
+
+- Forgot password via email
+- Profile image upload
+- Pagination & search
+- Deployment on Vercel / Render
+
+## 👨‍💻 Author
+
+- Babloo Kumar
+- Computer Science Engineer
+- Java + React Full Stack Developer
+
