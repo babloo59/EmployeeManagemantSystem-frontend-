@@ -132,15 +132,15 @@ http://localhost:3000
 - New users must change password on first login
 - Dashboard access is blocked until password is changed
 - After password update:
--- Token is cleared
--- User is forced to login again
+  - Token is cleared
+  - User is forced to login again
 
 ## 🛡️ Route Protection
 
 - ProtectedRoute
--- Checks authentication & first login
+  - Checks authentication & first login
 - RoleRoute
--- Restricts access based on role
+  - Restricts access based on role
 - Unauthorized access redirects to /unauthorized
 
 ## ⚠️ Notes
